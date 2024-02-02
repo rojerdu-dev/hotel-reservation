@@ -3,8 +3,6 @@ package main
 import "github.com/gofiber/fiber/v3"
 
 func main() {
-	//fmt.Println("starting hotel-reservation project")
-
 	app := fiber.New()
 	app.Get("/home", home)
 	app.Listen(":5000")
