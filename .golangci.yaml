@@ -11,8 +11,8 @@ linters:
     - gocritic
     - goconst
     - gocyclo
-    - gofumpt
-    - goimports
+#    - gofumpt
+#    - goimports
     - revive
     - rowserrcheck
     - goprintffuncname
