@@ -2,6 +2,7 @@ package api
 
 import (
 	"context"
+
 	"github.com/gofiber/fiber/v3"
 	"github.com/rojerdu-dev/hotel-reservation/db"
 	"github.com/rojerdu-dev/hotel-reservation/types"

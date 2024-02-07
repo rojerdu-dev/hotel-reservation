@@ -2,6 +2,7 @@ package db
 
 import (
 	"context"
+
 	"github.com/rojerdu-dev/hotel-reservation/types"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
