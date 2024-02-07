@@ -26,10 +26,10 @@ func (params CreateUserParams) Validate() []string {
 	if len(params.FirstName) < minFirstNameLen {
 		errors = append(errors, fmt.Sprintf("firstName length should be at least %d characters", minFirstNameLen))
 	}
-	if len(params.FirstName) < minLastNameLen {
+	if len(params.LastName) < minLastNameLen {
 		errors = append(errors, fmt.Sprintf("lastName length should be at least %d characters", minLastNameLen))
 	}
-	if len(params.FirstName) < minPasswordLen {
+	if len(params.Password) < minPasswordLen {
 		errors = append(errors, fmt.Sprintf("password length should be at least %d characters", minPasswordLen))
 	}
 	if !isEmailValid(params.Email) {

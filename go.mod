@@ -4,14 +4,12 @@ go 1.21
 
 require (
 	github.com/gofiber/fiber/v2 v2.52.0
-	github.com/gofiber/fiber/v3 v3.0.0-20240201123843-a348c1dd2c9b
 	go.mongodb.org/mongo-driver v1.13.1
 	golang.org/x/crypto v0.19.0
 )
 
 require (
 	github.com/andybalholm/brotli v1.1.0 // indirect
-	github.com/gofiber/utils/v2 v2.0.0-beta.3 // indirect
 	github.com/golang/snappy v0.0.1 // indirect
 	github.com/google/uuid v1.6.0 // indirect
 	github.com/klauspost/compress v1.17.5 // indirect

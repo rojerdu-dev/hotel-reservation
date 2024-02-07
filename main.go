@@ -3,11 +3,11 @@ package main
 import (
 	"context"
 	"flag"
-	"github.com/rojerdu-dev/hotel-reservation/db"
 	"log"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/rojerdu-dev/hotel-reservation/api"
+	"github.com/rojerdu-dev/hotel-reservation/db"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
@@ -40,12 +40,8 @@ func main() {
 	app := fiber.New(config)
 	apiv1 := app.Group("/api/v1")
 
-	app.Get("/home", handleHome)
+	apiv1.Post("/user", userHandler.HandlePostUser)
 	apiv1.Get("/user/:id", userHandler.HandleGetUser)
 	apiv1.Get("/user", userHandler.HandleGetUsers)
 	app.Listen(*addr)
-}
-
-func handleHome(c *fiber.Ctx) error {
-	return c.JSON(map[string]string{"msg": "home is where the heart is"})
 }
