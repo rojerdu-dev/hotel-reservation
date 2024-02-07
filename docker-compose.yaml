@@ -7,9 +7,9 @@ services:
     image: mongo:latest
     container_name: mongodb
     restart: always
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: supersecret
+#    environment:
+#      MONGO_INITDB_ROOT_USERNAME: root
+#      MONGO_INITDB_ROOT_PASSWORD: supersecret
     ports:
       - 27017:27017
     volumes:
