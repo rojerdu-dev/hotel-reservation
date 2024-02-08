@@ -21,3 +21,6 @@ vet:
 
 lint:
 	@golangci-lint run
+
+seed:
+	@go run scripts/seed.go

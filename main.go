@@ -13,8 +13,6 @@ import (
 )
 
 const (
-	dbURI    = "mongodb://localhost:27017"
-	dbName   = "hotel-reservations"
 	userColl = "users"
 )
 
@@ -30,12 +28,12 @@ func main() {
 	addr := flag.String("address", ":5000", "API server listen address")
 	flag.Parse()
 
-	client, err := mongo.Connect(context.TODO(), options.Client().ApplyURI(dbURI))
+	client, err := mongo.Connect(context.TODO(), options.Client().ApplyURI(db.DBURI))
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	userHandler := api.NewUserHandler(db.NewMongoUserStore(client, dbName))
+	userHandler := api.NewUserHandler(db.NewMongoUserStore(client, db.DBNAME))
 
 	app := fiber.New(config)
 	apiv1 := app.Group("/api/v1")
