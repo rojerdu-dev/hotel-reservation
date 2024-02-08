@@ -43,7 +43,7 @@ func main() {
 		room.HotelID = insertedHotel.ID
 		insertedRoom, err := roomStore.InsertRoom(ctx, &room)
 		if err != nil {
-			log.Fatalf("failed to insert room: %w", err)
+			log.Fatalf("failed to insert room: %v", err)
 		}
 		fmt.Println(insertedRoom)
 	}
