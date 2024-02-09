@@ -2,10 +2,11 @@ package types
 
 import (
 	"fmt"
+	"regexp"
+
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"golang.org/x/crypto/bcrypt"
-	"regexp"
 )
 
 const (

@@ -5,13 +5,13 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/gofiber/fiber/v2"
-	"github.com/rojerdu-dev/hotel-reservation/types"
 	"log"
 	"net/http/httptest"
 	"testing"
 
+	"github.com/gofiber/fiber/v2"
 	"github.com/rojerdu-dev/hotel-reservation/db"
+	"github.com/rojerdu-dev/hotel-reservation/types"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
