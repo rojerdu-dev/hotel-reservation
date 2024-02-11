@@ -44,3 +44,6 @@ issues:
     - path: main.go
       linters:
         - unused
+    - path: hotel_handler.go
+      linters:
+        - unused
