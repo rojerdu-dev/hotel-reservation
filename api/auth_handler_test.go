@@ -5,7 +5,6 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"io"
 	"net/http"
 	"net/http/httptest"
 	"reflect"
@@ -37,12 +36,7 @@ func TestAuthenticateSuccess(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
-	defer func(Body io.ReadCloser) {
-		err := Body.Close()
-		if err != nil {
-
-		}
-	}(resp.Body)
+	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusOK {
 		t.Fatalf("expected http status of 200 but got %d", resp.StatusCode)
@@ -89,12 +83,7 @@ func TestAuthenticateWrongPassword(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
-	defer func(Body io.ReadCloser) {
-		err := Body.Close()
-		if err != nil {
-
-		}
-	}(resp.Body)
+	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusBadRequest {
 		t.Fatalf("expected http status of 400 but got %d", resp.StatusCode)

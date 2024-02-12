@@ -5,7 +5,6 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"io"
 	"log"
 	"net/http/httptest"
 	"testing"
@@ -65,12 +64,7 @@ func TestPostUser(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
-	defer func(Body io.ReadCloser) {
-		err := Body.Close()
-		if err != nil {
-
-		}
-	}(resp.Body)
+	defer resp.Body.Close()
 
 	var user types.User
 	json.NewDecoder(resp.Body).Decode(&user)
