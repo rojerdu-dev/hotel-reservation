@@ -64,6 +64,8 @@ func TestPostUser(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
+	defer resp.Body.Close()
+
 	var user types.User
 	json.NewDecoder(resp.Body).Decode(&user)
 	if len(user.ID) == 0 {
