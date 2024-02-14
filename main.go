@@ -76,10 +76,10 @@ func main() {
 	// room handlers
 	apiv1.Get("/room", roomHandler.HandleGetRooms)
 	apiv1.Post("/room/:id/book", roomHandler.HandleBookRoom)
-	// TODO: cancel a booking
 
 	// booking handler
 	apiv1.Get("/booking/:id", bookingHandler.HandleGetBooking)
+	apiv1.Post("/booking/:id/cancel", bookingHandler.HandleCancelBooking)
 
 	// admin handlers
 	admin.Get("/booking", bookingHandler.HandleGetBookings)
