@@ -41,7 +41,7 @@ func validateToken(tokenStr string) (jwt.MapClaims, error) {
 	token, err := jwt.Parse(tokenStr, func(token *jwt.Token) (interface{}, error) {
 		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
 			fmt.Println("invalid signing method", token.Header["alg"])
-			return nil, fmt.Errorf("unathorized")
+			return nil, fmt.Errorf("unauthorized")
 		}
 		secret := os.Getenv("JWT_SECRET")
 		return []byte(secret), nil

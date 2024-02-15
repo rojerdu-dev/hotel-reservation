@@ -3,12 +3,12 @@ package main
 import (
 	"context"
 	"flag"
+	middleware2 "github.com/rojerdu-dev/hotel-reservation/api/middleware"
 	"log"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/rojerdu-dev/hotel-reservation/api"
 	"github.com/rojerdu-dev/hotel-reservation/db"
-	"github.com/rojerdu-dev/hotel-reservation/middleware"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
@@ -53,8 +53,8 @@ func main() {
 		bookingHandler = api.NewBookingHandler(store)
 		app            = fiber.New(config)
 		auth           = app.Group("/api")
-		apiv1          = app.Group("/api/v1", middleware.JWTAuthentication(userStore))
-		admin          = apiv1.Group("/admin", middleware.AdminAuth)
+		apiv1          = app.Group("/api/v1", middleware2.JWTAuthentication(userStore))
+		admin          = apiv1.Group("/admin", middleware2.AdminAuth)
 	)
 
 	// auth handler

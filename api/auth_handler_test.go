@@ -2,39 +2,40 @@ package api
 
 import (
 	"bytes"
-	"context"
 	"encoding/json"
 	"fmt"
+	"github.com/rojerdu-dev/hotel-reservation/db/fixtures"
 	"net/http"
 	"net/http/httptest"
 	"reflect"
 	"testing"
 
 	"github.com/gofiber/fiber/v2"
-	"github.com/rojerdu-dev/hotel-reservation/db"
-	"github.com/rojerdu-dev/hotel-reservation/types"
 )
 
 func TestAuthenticateSuccess(t *testing.T) {
 	tdb := setup(t)
 	defer tdb.teardown(t)
-	insertedUser := insertTestUser(t, tdb.UserStore)
+	insertedUser := fixtures.AddUser(tdb.Store, "michael", "jordan", false)
 
 	app := fiber.New()
-	authHandler := NewAuthHandler(tdb.UserStore)
+	authHandler := NewAuthHandler(tdb.User)
 	app.Post("/auth", authHandler.HandleAuthenticate)
 
 	params := AuthParams{
-		Email:    "ldicaprio@titanic.com",
-		Password: "securepassword",
+		Email:    "michael_jordan@email.com",
+		Password: "michael_jordan",
 	}
 
-	b, _ := json.Marshal(params)
+	b, err := json.Marshal(params)
+	if err != nil {
+		t.Fatal("failed to marshal params")
+	}
 	req := httptest.NewRequest("POST", "/auth", bytes.NewReader(b))
-	req.Header.Set("Content-Type", "application/json")
+	req.Header.Add("Content-Type", "application/json")
 	resp, err := app.Test(req)
 	if err != nil {
-		t.Error(err)
+		t.Fatal(err)
 	}
 	defer resp.Body.Close()
 
@@ -65,15 +66,16 @@ func TestAuthenticateSuccess(t *testing.T) {
 func TestAuthenticateWrongPassword(t *testing.T) {
 	tdb := setup(t)
 	defer tdb.teardown(t)
-	insertTestUser(t, tdb.UserStore)
+	//insertTestUser(t, tdb.User)
+	fixtures.AddUser(tdb.Store, "leonardo", "dicaprio", false)
 
 	app := fiber.New()
-	authHandler := NewAuthHandler(tdb.UserStore)
+	authHandler := NewAuthHandler(tdb.User)
 	app.Post("/auth", authHandler.HandleAuthenticate)
 
 	params := AuthParams{
 		Email:    "ldicaprio@titanic.com",
-		Password: "securepasswordincorrect",
+		Password: "leonardo_dicaprio",
 	}
 
 	b, _ := json.Marshal(params)
@@ -100,21 +102,22 @@ func TestAuthenticateWrongPassword(t *testing.T) {
 	}
 }
 
-func insertTestUser(t *testing.T, userStore db.UserStore) *types.User {
-	user, err := types.NewUserFromParams(types.CreateUserParams{
-		FirstName: "Leonardo",
-		LastName:  "DiCaprio",
-		Email:     "ldicaprio@titanic.com",
-		Password:  "securepassword",
-	})
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	user, err = userStore.InsertUser(context.TODO(), user)
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	return user
-}
+//
+//func insertTestUser(t *testing.T, userStore db.UserStore) *types.User {
+//	user, err := types.NewUserFromParams(types.CreateUserParams{
+//		FirstName: "Leonardo",
+//		LastName:  "DiCaprio",
+//		Email:     "ldicaprio@titanic.com",
+//		Password:  "securepassword",
+//	})
+//	if err != nil {
+//		t.Fatal(err)
+//	}
+//
+//	user, err = userStore.InsertUser(context.TODO(), user)
+//	if err != nil {
+//		t.Fatal(err)
+//	}
+//
+//	return user
+//}
