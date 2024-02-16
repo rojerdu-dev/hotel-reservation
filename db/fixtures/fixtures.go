@@ -3,21 +3,22 @@ package fixtures
 import (
 	"context"
 	"fmt"
-	"go.mongodb.org/mongo-driver/bson/primitive"
 	"log"
 	"math/rand"
 	"time"
 
 	"github.com/rojerdu-dev/hotel-reservation/db"
 	"github.com/rojerdu-dev/hotel-reservation/types"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
 func AddBooking(store *db.Store, userID, roomID primitive.ObjectID, from, until time.Time) *types.Booking {
-	rand.Seed(time.Now().UnixNano())
+	source := rand.NewSource(time.Now().UnixNano())
+	randomNumGen := rand.New(source)
 	booking := &types.Booking{
 		UserID:     userID,
 		RoomID:     roomID,
-		NumPersons: rand.Intn(5) + 1,
+		NumPersons: randomNumGen.Intn(5) + 1,
 		FromDate:   from,
 		UntilDate:  until,
 		Canceled:   false,
@@ -70,6 +71,9 @@ func AddUser(store *db.Store, fname, lname string, admin bool) *types.User {
 		Email:     fmt.Sprintf("%s_%s@email.com", fname, lname),
 		Password:  fmt.Sprintf("%s_%s", fname, lname),
 	})
+	if err != nil {
+		log.Fatal(err)
+	}
 	user.IsAdmin = admin
 	insertedUser, err := store.User.InsertUser(context.TODO(), user)
 	if err != nil {

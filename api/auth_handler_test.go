@@ -4,13 +4,13 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"github.com/rojerdu-dev/hotel-reservation/db/fixtures"
 	"net/http"
 	"net/http/httptest"
 	"reflect"
 	"testing"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/rojerdu-dev/hotel-reservation/db/fixtures"
 )
 
 func TestAuthenticateSuccess(t *testing.T) {
@@ -66,7 +66,6 @@ func TestAuthenticateSuccess(t *testing.T) {
 func TestAuthenticateWrongPassword(t *testing.T) {
 	tdb := setup(t)
 	defer tdb.teardown(t)
-	//insertTestUser(t, tdb.User)
 	fixtures.AddUser(tdb.Store, "leonardo", "dicaprio", false)
 
 	app := fiber.New()
@@ -101,23 +100,3 @@ func TestAuthenticateWrongPassword(t *testing.T) {
 		t.Fatalf("expected gen response type to be <invalid credentials> but got %s", genResp.Msg)
 	}
 }
-
-//
-//func insertTestUser(t *testing.T, userStore db.UserStore) *types.User {
-//	user, err := types.NewUserFromParams(types.CreateUserParams{
-//		FirstName: "Leonardo",
-//		LastName:  "DiCaprio",
-//		Email:     "ldicaprio@titanic.com",
-//		Password:  "securepassword",
-//	})
-//	if err != nil {
-//		t.Fatal(err)
-//	}
-//
-//	user, err = userStore.InsertUser(context.TODO(), user)
-//	if err != nil {
-//		t.Fatal(err)
-//	}
-//
-//	return user
-//}

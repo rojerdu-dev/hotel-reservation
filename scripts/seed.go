@@ -3,12 +3,12 @@ package main
 import (
 	"context"
 	"fmt"
-	"github.com/rojerdu-dev/hotel-reservation/db/fixtures"
 	"log"
 	"time"
 
 	"github.com/rojerdu-dev/hotel-reservation/api"
 	"github.com/rojerdu-dev/hotel-reservation/db"
+	"github.com/rojerdu-dev/hotel-reservation/db/fixtures"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
