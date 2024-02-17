@@ -4,7 +4,7 @@ build:
 	@GOARCH=amd64 GOOS=linux go build -o ./bin/${BINARY_NAME}
 
 run: build
-	@./bin/api
+	@./bin/${BINARY_NAME}
 
 clean:
 	@go clean
