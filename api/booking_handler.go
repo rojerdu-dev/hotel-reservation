@@ -57,10 +57,6 @@ func (h *BookingHandler) HandleGetBooking(c *fiber.Ctx) error {
 	if err != nil {
 		return ErrorResourceNotFound("booking")
 	}
-	//user, ok := c.Context().UserValue("user").(*types.User)
-	//if !ok {
-	//	return err
-	//}
 	user, err := getAuthUser(c)
 	if err != nil {
 		return ErrorUnauthorized()

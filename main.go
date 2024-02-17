@@ -3,12 +3,13 @@ package main
 import (
 	"context"
 	"flag"
+	"log"
+
 	"github.com/gofiber/fiber/v2"
 	"github.com/rojerdu-dev/hotel-reservation/api"
 	"github.com/rojerdu-dev/hotel-reservation/db"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
-	"log"
 )
 
 const (
