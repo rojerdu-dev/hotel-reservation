@@ -31,8 +31,8 @@ jobs:
           go-version: ${{ matrix.go-version }}
           cache: true
 
-      - name: Run MongoDB
-        run: docker-compose up -d mongodb
+      - name: Start MongoDB
+        uses: supercharge/mongodb-github-action@1.10.0
 
       - name: Test
         run: make test
