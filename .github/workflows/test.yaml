@@ -10,6 +10,14 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+
+    services:
+      mongodb:
+        image: mongo
+        ports:
+          - 27017:27017
+        options: --health-cmd "mongo --eval 'db.runCommand({ connectionStatus: 1 })'" --health-interval 10s --health-timeout 5s --health-retries 3
+
     strategy:
       matrix:
         go-version: ['1.21', '1.22']
@@ -23,6 +31,9 @@ jobs:
         with:
           go-version: ${{ matrix.go-version }}
           cache: true
+
+      - name: Run MongoDB
+        run: docker-compose up -d mongodb
 
       - name: Test
         run: make test
