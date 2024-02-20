@@ -25,7 +25,7 @@ func (tdb *testdb) teardown(t *testing.T) {
 	}
 }
 
-func setup(t *testing.T) *testdb {
+func setup(_ *testing.T) *testdb {
 	dbURI := os.Getenv("MONGO_DB_URL_TEST")
 	client, err := mongo.Connect(context.TODO(), options.Client().ApplyURI(dbURI))
 	if err != nil {

@@ -54,3 +54,6 @@ issues:
     - path: fixtures.go
       linters:
         - gosec
+    - path: test_helpers.go
+      linters:
+        - revive
