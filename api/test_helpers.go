@@ -3,16 +3,14 @@ package api
 import (
 	"context"
 	"log"
+	"os"
 	"testing"
 
+	_ "github.com/joho/godotenv"
+	_ "github.com/joho/godotenv/autoload"
 	"github.com/rojerdu-dev/hotel-reservation/db"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
-)
-
-const (
-	testDBURI  = "mongodb://localhost:27017"
-	testDBName = "hotel-reservations-test"
 )
 
 type testdb struct {
@@ -21,13 +19,15 @@ type testdb struct {
 }
 
 func (tdb *testdb) teardown(t *testing.T) {
-	if err := tdb.client.Database(db.DBNAME).Drop(context.TODO()); err != nil {
+	dbName := os.Getenv(db.MongoDBNameEnvName)
+	if err := tdb.client.Database(dbName).Drop(context.TODO()); err != nil {
 		t.Fatal(err)
 	}
 }
 
-func setup(_ *testing.T) *testdb {
-	client, err := mongo.Connect(context.TODO(), options.Client().ApplyURI(testDBURI))
+func setup(t *testing.T) *testdb {
+	dbURI := os.Getenv("MONGO_DB_URL_TEST")
+	client, err := mongo.Connect(context.TODO(), options.Client().ApplyURI(dbURI))
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -36,7 +36,7 @@ func setup(_ *testing.T) *testdb {
 		client,
 		&db.Store{
 			User:    db.NewMongoUserStore(client),
-			Hotel:   db.NewMongoHotelStore(client),
+			Hotel:   hotelStore,
 			Room:    db.NewMongoRoomStore(client, hotelStore),
 			Booking: db.NewMongoBookingStore(client),
 		},
